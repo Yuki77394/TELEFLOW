@@ -1,0 +1,133 @@
+from telethon import events
+from telethon.errors import ChatAdminRequiredError, ChatWriteForbiddenError, FloodWaitError
+from database.database import (
+    get_targets_for_source, get_replacements, get_header_footer,
+    save_message_map, get_mapped_message
+)
+from core.logger import logger
+import asyncio
+
+async def copy_message(client, target_id, message, text, reply_to_id=None, entities=None):
+    """Sends a copy of the message (re-sending media or text) to target_id.
+    Preserves formatting_entities (premium emoji, bold, italic, spoiler, etc.)
+    when provided and text is unmodified.
+    """
+    if message.media:
+        # Check if this media type supports caption
+        supports_cap = True
+        if message.sticker or message.poll or message.contact or message.geo or message.venue:
+            supports_cap = False
+
+        caption = text if supports_cap else None
+        caption_entities = entities if supports_cap else None
+
+        return await client.send_file(
+            target_id,
+            file=message.media,
+            caption=caption,
+            formatting_entities=caption_entities,
+            reply_to=reply_to_id
+        )
+    else:
+        return await client.send_message(
+            target_id,
+            message=text,
+            formatting_entities=entities,
+            reply_to=reply_to_id
+        )
+
+def register(client):
+    @client.on(events.NewMessage)
+    async def forwarder_handler(event):
+        # Skip userbot commands (starting with a period or slash)
+        if event.text and (event.text.strip().startswith('.') or event.text.strip().startswith('/')):
+            return
+
+        chat_id = event.chat_id
+        if not chat_id:
+            return
+
+        # Query target channels for the current source chat ID
+        targets = get_targets_for_source(chat_id)
+        if not targets:
+            return
+
+        logger.info(f"New message {event.id} in source {chat_id}. Processing for targets: {targets}")
+
+        for target_id in targets:
+            try:
+                # ─── Resolve Reply Mapping ───────────────────────────────────
+                reply_to_msg_id = None
+                if event.message.reply_to:
+                    source_reply_id = event.message.reply_to.reply_to_msg_id
+                    mapped_reply_id = get_mapped_message(chat_id, source_reply_id, target_id)
+                    if mapped_reply_id:
+                        reply_to_msg_id = mapped_reply_id
+                        logger.info(f"Resolved reply mapping: Source Msg {source_reply_id} -> Target Msg {mapped_reply_id}")
+
+                # ─── Resolve Replacements & Header/Footer ───────────────────
+                replacements = get_replacements(chat_id, target_id)
+                header, footer = get_header_footer(chat_id, target_id)
+                has_transformations = bool(replacements or header or footer)
+
+                # Get text/caption
+                original_text = event.message.text or ""
+                transformed_text = original_text
+
+                # Apply replacements
+                for find, replace in replacements:
+                    transformed_text = transformed_text.replace(find, replace)
+
+                # Apply Header & Footer
+                if header:
+                    transformed_text = f"{header}\n\n{transformed_text}"
+                if footer:
+                    transformed_text = f"{transformed_text}\n\n{footer}"
+
+                # ─── Preserve Premium Formatting Entities ────────────────────
+                # Only safe to reuse original entities when text was NOT modified,
+                # since replacements/header/footer shift character offsets.
+                entities_to_send = None
+                if not has_transformations:
+                    entities_to_send = event.message.entities
+                else:
+                    if event.message.entities:
+                        logger.debug(
+                            f"Msg {event.id}: text transformed, dropping original "
+                            f"formatting entities to avoid offset mismatch."
+                        )
+
+                # ─── Always Use Copy Mode (no "Forwarded from" tag) ──────────
+                sent_msg = await copy_message(
+                    client, target_id, event.message, transformed_text,
+                    reply_to_id=reply_to_msg_id, entities=entities_to_send
+                )
+                logger.info(f"Copied msg {event.id}: {chat_id} → {target_id} (Copy Mode)")
+
+                # ─── Save Message Mapping for Syncing ────────────────────────
+                if sent_msg:
+                    save_message_map(chat_id, event.id, target_id, sent_msg.id)
+                    logger.debug(f"Saved message mapping: Source {chat_id}:{event.id} -> Target {target_id}:{sent_msg.id}")
+
+            except FloodWaitError as fw:
+                logger.warning(f"FloodWait {fw.seconds}s for target {target_id}. Waiting...")
+                await asyncio.sleep(fw.seconds + 2)
+                # Retry once, still in Copy Mode
+                try:
+                    sent_msg = await copy_message(
+                        client, target_id, event.message, transformed_text,
+                        reply_to_id=reply_to_msg_id, entities=entities_to_send
+                    )
+                    if sent_msg:
+                        save_message_map(chat_id, event.id, target_id, sent_msg.id)
+                        logger.info(f"Copied msg {event.id} after FloodWait: {chat_id} → {target_id}")
+                except Exception as retry_err:
+                    logger.error(f"Retry failed after FloodWait: {retry_err}")
+
+            except (ChatAdminRequiredError, ChatWriteForbiddenError) as perm_err:
+                logger.error(f"Permission error sending to target {target_id}: {perm_err}")
+
+            except Exception as e:
+                logger.error(
+                    f"Failed to process msg {event.id} from {chat_id} to {target_id}: {e}"
+                )

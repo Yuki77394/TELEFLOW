@@ -1,0 +1,68 @@
+{
+  "name": "TELEFLOW",
+  "description": "A Telegram Forwarder Bot, written in Python with Telethon.",
+  "logo": "https://files.catbox.moe/fdkxi4.jpg",
+  "keywords": [
+    "python3",
+    "telegram",
+    "bot",
+    "TELEFLOW",
+    "ForwarderBot",
+    "telegram-bot",
+    "telethon"
+  ],
+  "env": {
+    "API_ID": {
+      "description": "Get this value from https://my.telegram.org",
+      "value": "",
+      "required": true
+    },
+    "API_HASH": {
+      "description": "Get this value from https://my.telegram.org",
+      "value": "",
+      "required": true
+    },
+    "BOT_TOKEN": {
+      "description": "A Bot's token from Botfather",
+      "value": "",
+      "required": true
+    },
+    "OWNER_ID": {
+      "description": "Your own Telegram numeric user ID (send /id to your bot to get it).",
+      "value": "",
+      "required": true
+    },
+    "SESSION_STRING": {
+      "description": "Generate this yourself by running login.py locally with your own API_ID/API_HASH. Never obtain a session string from a third-party bot or service.",
+      "value": "",
+      "required": true
+    },
+    "MONGO_URI": {
+      "description": "Your own MongoDB connection string (optional, leave blank to use local SQLite).",
+      "value": "",
+      "required": false
+    },
+    "HEROKU_API_KEY": {
+      "description": "Your Heroku account's API key",
+      "value": "",
+      "required": false
+    },
+    "HEROKU_APP_NAME": {
+      "description": "Your heroku app name",
+      "value": "",
+      "required": false
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    },
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+    }
+  ],
+  "stack": "container"
+}

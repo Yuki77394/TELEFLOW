@@ -1,0 +1,276 @@
+nohup: ignoring input
+2026-07-04 22:11:03 - TeleFlow - INFO - Initializing TelegramClient with StringSession...
+2026-07-04 22:11:03 - TeleFlow - INFO - Initializing Assistant Bot client...
+2026-07-04 22:11:03 - TeleFlow - INFO - Starting TeleFlow platform...
+2026-07-04 22:11:03 - TeleFlow - INFO - SQLite Database initialized successfully.
+2026-07-04 22:11:03 - TeleFlow - INFO - Loaded command module: commands.channel_manager on Assistant Bot
+2026-07-04 22:11:03 - TeleFlow - INFO - Loaded command module: commands.chats on Assistant Bot
+2026-07-04 22:11:03 - TeleFlow - INFO - Loaded command module: commands.help on Assistant Bot
+2026-07-04 22:11:03 - TeleFlow - INFO - Loaded command module: commands.id on Assistant Bot
+2026-07-04 22:11:03 - TeleFlow - INFO - Loaded command module: commands.join on Assistant Bot
+2026-07-04 22:11:03 - TeleFlow - INFO - Loaded command module: commands.me on Assistant Bot
+2026-07-04 22:11:03 - TeleFlow - INFO - Loaded command module: commands.ping on Assistant Bot
+2026-07-04 22:11:03 - TeleFlow - INFO - Loaded command module: commands.start on Assistant Bot
+2026-07-04 22:11:03 - TeleFlow - INFO - Loaded command module: commands.super_users on Assistant Bot
+2026-07-04 22:11:03 - TeleFlow - INFO - Loaded command module: commands.transform on Assistant Bot
+2026-07-04 22:11:03 - TeleFlow - INFO - Loaded feature module: modules.forwarder on UserBot
+2026-07-04 22:11:03 - TeleFlow - INFO - Loaded feature module: modules.sync on UserBot
+2026-07-04 22:11:03 - TeleFlow - INFO - Starting Telegram Clients...
+2026-07-04 22:11:04 - TeleFlow - INFO - TeleFlow UserBot is running as 𝐌𝐀𝐂𝐇𝐇𝐀𝐋 (@) [ID: 8344615926]
+2026-07-04 22:11:04 - TeleFlow - INFO - Starting Assistant Bot...
+2026-07-04 22:11:07 - TeleFlow - INFO - Loading Assistant Bot plugins...
+2026-07-04 22:11:07 - TeleFlow - INFO - Loaded Assistant module: assistant.callbacks
+2026-07-04 22:11:07 - TeleFlow - INFO - Loaded Assistant module: assistant.conversation
+2026-07-04 22:11:07 - TeleFlow - INFO - Loaded Assistant module: assistant.menu
+2026-07-04 22:11:07 - TeleFlow - INFO - Assistant Bot is running as @TeleFlow_TelegramForwardbot [ID: 8672887534]
+2026-07-04 22:11:08 - TeleFlow - INFO - Startup notification sent to 1217850333
+2026-07-04 22:11:15 - TeleFlow - INFO - New message 117464 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:11:15 - TeleFlow - INFO - Copied msg 117464: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:11:25 - TeleFlow - INFO - New message 117465 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:11:25 - TeleFlow - INFO - Copied msg 117465: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:11:28 - TeleFlow - INFO - New message 117466 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:11:28 - TeleFlow - INFO - Copied msg 117466: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:11:49 - TeleFlow - INFO - New message 117468 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:11:49 - TeleFlow - INFO - Copied msg 117468: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:12:02 - TeleFlow - INFO - New message 117469 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:12:02 - TeleFlow - INFO - Copied msg 117469: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:12:02 - TeleFlow - INFO - New message 350327 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 22:12:03 - TeleFlow - INFO - Copied msg 350327: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 22:12:09 - TeleFlow - INFO - New message 117470 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:12:09 - TeleFlow - INFO - Copied msg 117470: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:12:26 - TeleFlow - INFO - New message 117471 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:12:26 - TeleFlow - INFO - Copied msg 117471: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:12:47 - TeleFlow - INFO - New message 117472 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:12:48 - TeleFlow - INFO - Copied msg 117472: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:13:55 - TeleFlow - INFO - New message 117473 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:13:55 - TeleFlow - INFO - Copied msg 117473: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:14:30 - TeleFlow - INFO - New message 117474 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:14:30 - TeleFlow - INFO - Copied msg 117474: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:14:30 - TeleFlow - INFO - New message 117475 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:14:30 - TeleFlow - INFO - Copied msg 117475: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:14:30 - TeleFlow - INFO - New message 117476 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:14:30 - TeleFlow - INFO - Copied msg 117476: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:14:53 - TeleFlow - INFO - New message 117477 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:14:53 - TeleFlow - INFO - Copied msg 117477: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:15:04 - TeleFlow - INFO - New message 350328 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 22:15:04 - TeleFlow - INFO - Copied msg 350328: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 22:15:10 - TeleFlow - INFO - New message 117478 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:15:10 - TeleFlow - INFO - Copied msg 117478: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:15:36 - TeleFlow - INFO - New message 117479 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:15:36 - TeleFlow - INFO - Copied msg 117479: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:15:38 - TeleFlow - INFO - New message 117480 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:15:38 - TeleFlow - INFO - Copied msg 117480: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:17:19 - TeleFlow - INFO - New message 117481 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:17:19 - TeleFlow - INFO - Copied msg 117481: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:17:38 - TeleFlow - INFO - New message 117482 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:17:39 - TeleFlow - INFO - Copied msg 117482: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:17:48 - TeleFlow - INFO - New message 117483 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:17:48 - TeleFlow - INFO - Copied msg 117483: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:17:57 - TeleFlow - INFO - New message 117484 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:17:57 - TeleFlow - INFO - Copied msg 117484: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:18:03 - TeleFlow - INFO - New message 350329 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 22:18:03 - TeleFlow - INFO - Copied msg 350329: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 22:18:33 - TeleFlow - INFO - New message 117485 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:18:34 - TeleFlow - INFO - Copied msg 117485: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:18:48 - TeleFlow - INFO - New message 117486 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:18:48 - TeleFlow - INFO - Copied msg 117486: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:19:19 - TeleFlow - INFO - New message 117487 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:19:19 - TeleFlow - INFO - Copied msg 117487: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:19:35 - TeleFlow - INFO - New message 117488 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:19:35 - TeleFlow - INFO - Copied msg 117488: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:19:44 - TeleFlow - INFO - New message 117489 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:19:44 - TeleFlow - INFO - Copied msg 117489: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:20:00 - TeleFlow - INFO - New message 117490 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:20:00 - TeleFlow - INFO - Copied msg 117490: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:21:05 - TeleFlow - INFO - New message 350330 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 22:21:05 - TeleFlow - INFO - Copied msg 350330: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 22:21:39 - TeleFlow - INFO - New message 117491 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:21:39 - TeleFlow - INFO - Copied msg 117491: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:22:03 - TeleFlow - INFO - New message 117492 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:22:03 - TeleFlow - INFO - Copied msg 117492: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:22:40 - TeleFlow - INFO - New message 117493 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:22:40 - TeleFlow - INFO - Copied msg 117493: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:23:03 - TeleFlow - INFO - New message 117494 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:23:04 - TeleFlow - INFO - Copied msg 117494: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:23:10 - TeleFlow - INFO - New message 117495 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:23:10 - TeleFlow - INFO - Copied msg 117495: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:23:21 - TeleFlow - INFO - New message 117496 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:23:21 - TeleFlow - INFO - Copied msg 117496: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:23:24 - TeleFlow - INFO - New message 117497 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:23:24 - TeleFlow - INFO - Copied msg 117497: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:23:31 - TeleFlow - INFO - New message 117498 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:23:31 - TeleFlow - INFO - Copied msg 117498: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:24:05 - TeleFlow - INFO - New message 350331 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 22:24:05 - TeleFlow - INFO - Copied msg 350331: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 22:25:14 - TeleFlow - INFO - New message 117499 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:25:14 - TeleFlow - INFO - Copied msg 117499: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:25:25 - TeleFlow - INFO - New message 117500 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:25:25 - TeleFlow - INFO - Copied msg 117500: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:25:52 - TeleFlow - INFO - New message 117501 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:25:53 - TeleFlow - INFO - Copied msg 117501: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:26:09 - TeleFlow - INFO - New message 117502 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:26:09 - TeleFlow - INFO - Copied msg 117502: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:26:12 - TeleFlow - INFO - New message 117503 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:26:12 - TeleFlow - INFO - Copied msg 117503: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:26:15 - TeleFlow - INFO - New message 117504 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:26:15 - TeleFlow - INFO - Copied msg 117504: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:26:30 - TeleFlow - INFO - New message 117505 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:26:30 - TeleFlow - INFO - Copied msg 117505: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:27:04 - TeleFlow - INFO - New message 350332 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 22:27:04 - TeleFlow - INFO - Copied msg 350332: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 22:27:33 - TeleFlow - INFO - New message 117506 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:27:33 - TeleFlow - INFO - Copied msg 117506: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:28:10 - TeleFlow - INFO - New message 117507 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:28:10 - TeleFlow - INFO - Copied msg 117507: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:28:26 - TeleFlow - INFO - New message 117508 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:28:27 - TeleFlow - INFO - Copied msg 117508: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:28:43 - TeleFlow - INFO - New message 117509 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:28:44 - TeleFlow - INFO - Copied msg 117509: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:30:02 - TeleFlow - INFO - New message 350333 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 22:30:02 - TeleFlow - INFO - Copied msg 350333: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 22:31:23 - TeleFlow - INFO - New message 117510 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:31:23 - TeleFlow - INFO - Copied msg 117510: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:31:27 - TeleFlow - INFO - New message 117511 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:31:27 - TeleFlow - INFO - Copied msg 117511: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:32:22 - TeleFlow - INFO - New message 117512 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:32:22 - TeleFlow - INFO - Copied msg 117512: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:32:56 - TeleFlow - INFO - New message 117513 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:32:56 - TeleFlow - INFO - Copied msg 117513: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:33:06 - TeleFlow - INFO - New message 350334 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 22:33:06 - TeleFlow - INFO - Copied msg 350334: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 22:33:37 - TeleFlow - INFO - New message 117514 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:33:37 - TeleFlow - INFO - Copied msg 117514: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:35:01 - TeleFlow - INFO - New message 117515 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:35:01 - TeleFlow - INFO - Copied msg 117515: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:35:02 - TeleFlow - INFO - New message 117516 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:35:02 - TeleFlow - INFO - Copied msg 117516: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:35:15 - TeleFlow - INFO - New message 117517 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:35:15 - TeleFlow - INFO - Copied msg 117517: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:35:29 - TeleFlow - INFO - New message 117518 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:35:30 - TeleFlow - INFO - Copied msg 117518: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:35:57 - TeleFlow - INFO - New message 117519 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:35:57 - TeleFlow - INFO - Copied msg 117519: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:36:08 - TeleFlow - INFO - New message 117520 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:36:08 - TeleFlow - INFO - Copied msg 117520: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:36:10 - TeleFlow - INFO - New message 350335 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 22:36:10 - TeleFlow - INFO - Copied msg 350335: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 22:36:28 - TeleFlow - INFO - New message 117521 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:36:28 - TeleFlow - INFO - Copied msg 117521: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:36:43 - TeleFlow - INFO - New message 117522 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:36:43 - TeleFlow - INFO - Copied msg 117522: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:38:26 - TeleFlow - INFO - New message 117523 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:38:26 - TeleFlow - INFO - Copied msg 117523: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:38:37 - TeleFlow - INFO - New message 117524 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:38:38 - TeleFlow - INFO - Copied msg 117524: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:39:05 - TeleFlow - INFO - New message 350336 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 22:39:05 - TeleFlow - INFO - Copied msg 350336: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 22:39:16 - TeleFlow - INFO - New message 117525 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:39:16 - TeleFlow - INFO - Copied msg 117525: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:40:09 - TeleFlow - INFO - New message 117526 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:40:10 - TeleFlow - INFO - Copied msg 117526: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:40:19 - TeleFlow - INFO - New message 117527 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:40:19 - TeleFlow - INFO - Copied msg 117527: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:40:51 - TeleFlow - INFO - New message 117528 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:40:51 - TeleFlow - INFO - Copied msg 117528: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:41:18 - TeleFlow - INFO - New message 117529 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:41:18 - TeleFlow - INFO - Copied msg 117529: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:41:43 - TeleFlow - INFO - New message 117530 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:41:43 - TeleFlow - INFO - Copied msg 117530: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:41:52 - TeleFlow - INFO - New message 117531 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:41:52 - TeleFlow - INFO - Copied msg 117531: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:42:04 - TeleFlow - INFO - New message 117532 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:42:04 - TeleFlow - INFO - New message 350337 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 22:42:04 - TeleFlow - INFO - Copied msg 117532: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:42:04 - TeleFlow - INFO - Copied msg 350337: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 22:42:10 - TeleFlow - INFO - New message 117533 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:42:10 - TeleFlow - INFO - Copied msg 117533: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:42:12 - TeleFlow - INFO - New message 117534 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:42:12 - TeleFlow - INFO - Copied msg 117534: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:42:18 - TeleFlow - INFO - New message 117535 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:42:18 - TeleFlow - INFO - Copied msg 117535: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:42:41 - TeleFlow - INFO - New message 117536 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:42:41 - TeleFlow - INFO - Copied msg 117536: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:42:49 - TeleFlow - INFO - New message 117537 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:42:50 - TeleFlow - INFO - Copied msg 117537: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:43:07 - TeleFlow - INFO - New message 117538 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:43:08 - TeleFlow - INFO - Copied msg 117538: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:43:54 - TeleFlow - INFO - New message 117539 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:43:54 - TeleFlow - INFO - Copied msg 117539: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:43:55 - TeleFlow - INFO - New message 117540 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:43:55 - TeleFlow - INFO - Copied msg 117540: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:45:03 - TeleFlow - INFO - New message 350338 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 22:45:03 - TeleFlow - INFO - Copied msg 350338: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 22:45:06 - TeleFlow - INFO - New message 117541 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:45:06 - TeleFlow - INFO - Copied msg 117541: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:47:40 - TeleFlow - INFO - New message 117542 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:47:40 - TeleFlow - INFO - Copied msg 117542: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:47:59 - TeleFlow - INFO - New message 117543 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:47:59 - TeleFlow - INFO - Copied msg 117543: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:48:01 - TeleFlow - INFO - New message 350339 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 22:48:02 - TeleFlow - INFO - Copied msg 350339: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 22:48:37 - TeleFlow - INFO - New message 117544 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:48:37 - TeleFlow - INFO - Copied msg 117544: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:49:36 - TeleFlow - INFO - New message 117545 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:49:36 - TeleFlow - INFO - Copied msg 117545: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:50:12 - TeleFlow - INFO - New message 117546 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:50:12 - TeleFlow - INFO - Copied msg 117546: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:50:58 - TeleFlow - INFO - New message 117547 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:50:59 - TeleFlow - INFO - Copied msg 117547: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:51:04 - TeleFlow - INFO - New message 350340 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 22:51:04 - TeleFlow - INFO - Copied msg 350340: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 22:51:55 - TeleFlow - INFO - New message 117548 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:51:55 - TeleFlow - INFO - Copied msg 117548: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:51:55 - TeleFlow - INFO - New message 117549 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:51:55 - TeleFlow - INFO - Copied msg 117549: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:52:30 - TeleFlow - INFO - New message 117550 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:52:30 - TeleFlow - INFO - Copied msg 117550: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:54:03 - TeleFlow - INFO - New message 350341 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 22:54:03 - TeleFlow - INFO - Copied msg 350341: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 22:56:55 - TeleFlow - INFO - New message 117551 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:56:55 - TeleFlow - INFO - Copied msg 117551: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:57:04 - TeleFlow - INFO - New message 350342 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 22:57:04 - TeleFlow - INFO - New message 117552 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:57:04 - TeleFlow - INFO - Copied msg 350342: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 22:57:04 - TeleFlow - INFO - Copied msg 117552: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:57:55 - TeleFlow - INFO - New message 117553 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:57:55 - TeleFlow - INFO - Copied msg 117553: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 22:59:04 - TeleFlow - INFO - New message 117554 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 22:59:04 - TeleFlow - INFO - Copied msg 117554: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 23:00:04 - TeleFlow - INFO - New message 350343 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 23:00:05 - TeleFlow - INFO - Copied msg 350343: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 23:01:50 - TeleFlow - INFO - New message 117555 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 23:01:50 - TeleFlow - INFO - Copied msg 117555: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 23:02:33 - TeleFlow - INFO - New message 117556 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 23:02:33 - TeleFlow - INFO - Copied msg 117556: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 23:03:06 - TeleFlow - INFO - New message 350344 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 23:03:06 - TeleFlow - INFO - Copied msg 350344: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 23:03:47 - TeleFlow - INFO - New message 117557 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 23:03:47 - TeleFlow - INFO - Copied msg 117557: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 23:04:06 - TeleFlow - INFO - New message 117558 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 23:04:06 - TeleFlow - INFO - Copied msg 117558: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 23:04:38 - TeleFlow - INFO - New message 117559 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 23:04:38 - TeleFlow - INFO - Copied msg 117559: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 23:04:49 - TeleFlow - INFO - New message 117560 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 23:04:49 - TeleFlow - INFO - Copied msg 117560: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 23:06:02 - TeleFlow - INFO - New message 350345 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 23:06:02 - TeleFlow - INFO - Copied msg 350345: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 23:07:02 - TeleFlow - INFO - New message 117561 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 23:07:02 - TeleFlow - INFO - Copied msg 117561: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 23:07:30 - TeleFlow - INFO - New message 117562 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 23:07:30 - TeleFlow - INFO - Copied msg 117562: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 23:09:02 - TeleFlow - INFO - New message 350346 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 23:09:02 - TeleFlow - INFO - Copied msg 350346: -1002033895185 → -1004321870647 (Copy Mode)
+2026-07-04 23:09:20 - TeleFlow - INFO - New message 117563 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 23:09:20 - TeleFlow - INFO - Copied msg 117563: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 23:10:02 - TeleFlow - INFO - New message 117564 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 23:10:02 - TeleFlow - INFO - Copied msg 117564: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 23:10:04 - TeleFlow - INFO - New message 117565 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 23:10:04 - TeleFlow - INFO - Copied msg 117565: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 23:10:14 - TeleFlow - INFO - New message 117566 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 23:10:14 - TeleFlow - INFO - Copied msg 117566: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 23:10:28 - TeleFlow - INFO - New message 117567 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 23:10:29 - TeleFlow - INFO - Copied msg 117567: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 23:11:00 - TeleFlow - INFO - New message 117568 in source -1003792919759. Processing for targets: [-1004321870647]
+2026-07-04 23:11:00 - TeleFlow - INFO - Copied msg 117568: -1003792919759 → -1004321870647 (Copy Mode)
+2026-07-04 23:12:56 - TeleFlow - INFO - New message 350347 in source -1002033895185. Processing for targets: [-1004321870647]
+2026-07-04 23:12:56 - TeleFlow - INFO - Copied msg 350347: -1002033895185 → -1004321870647 (Copy Mode)

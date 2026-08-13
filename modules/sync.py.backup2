@@ -1,0 +1,125 @@
+from telethon import events
+from telethon.tl.functions.messages import SendReactionRequest
+from telethon.tl.types import ReactionEmoji
+from database.database import (
+    get_targets_for_source, get_mapped_message, delete_message_map,
+    get_replacements, get_header_footer
+)
+from core.logger import logger
+
+def register(client):
+    # ─── EDIT SYNC ────────────────────────────────────────────────────────────
+    @client.on(events.MessageEdited)
+    async def edit_sync_handler(event):
+        chat_id = event.chat_id
+        if not chat_id:
+            return
+
+        targets = get_targets_for_source(chat_id)
+        if not targets:
+            return
+
+        for target_id in targets:
+            target_msg_id = get_mapped_message(chat_id, event.id, target_id)
+            if not target_msg_id:
+                continue
+
+            try:
+                # Get current message text/caption
+                text = event.message.text or ""
+
+                # Apply replacements
+                replacements = get_replacements(chat_id, target_id)
+                for find, replace in replacements:
+                    text = text.replace(find, replace)
+
+                # Prepend Header & Append Footer
+                header, footer = get_header_footer(chat_id, target_id)
+                if header:
+                    text = f"{header}\n\n{text}"
+                if footer:
+                    text = f"{text}\n\n{footer}"
+
+                # Update target message text or caption
+                await event.client.edit_message(target_id, target_msg_id, text)
+                logger.info(f"Edited synced message {event.id} in target {target_id}")
+            except Exception as e:
+                logger.error(
+                    f"Failed to sync edit for message {event.id} "
+                    f"from {chat_id} to {target_id}: {e}"
+                )
+
+    # ─── DELETE SYNC ──────────────────────────────────────────────────────────
+    @client.on(events.MessageDeleted)
+    async def delete_sync_handler(event):
+        chat_id = event.chat_id
+        if not chat_id:
+            return
+
+        targets = get_targets_for_source(chat_id)
+        if not targets:
+            return
+
+        for deleted_id in event.deleted_ids:
+            for target_id in targets:
+                target_msg_id = get_mapped_message(chat_id, deleted_id, target_id)
+                if not target_msg_id:
+                    continue
+
+                try:
+                    await event.client.delete_messages(target_id, target_msg_id)
+                    logger.info(f"Deleted synced message {deleted_id} in target {target_id}")
+                except Exception as e:
+                    logger.error(
+                        f"Failed to sync delete for message {deleted_id} "
+                        f"from {chat_id} to {target_id}: {e}"
+                    )
+
+            # Clean up mapping from DB
+            delete_message_map(chat_id, deleted_id)
+
+    # ─── REACTION SYNC ────────────────────────────────────────────────────────
+    @client.on(events.MessageReaction)
+    async def reaction_sync_handler(event):
+        chat_id = event.chat_id
+        if not chat_id:
+            return
+
+        targets = get_targets_for_source(chat_id)
+        if not targets:
+            return
+
+        source_msg_id = event.msg_id
+
+        # Build the reaction list from the event's current reaction state
+        reactions = []
+        try:
+            for r in (event.new or []):
+                emoticon = getattr(getattr(r, "reaction", None), "emoticon", None)
+                if emoticon:
+                    reactions.append(ReactionEmoji(emoticon=emoticon))
+        except Exception as e:
+            logger.error(f"Failed to parse reaction data for msg {source_msg_id}: {e}")
+            return
+
+        for target_id in targets:
+            target_msg_id = get_mapped_message(chat_id, source_msg_id, target_id)
+            if not target_msg_id:
+                continue
+
+            try:
+                await client(SendReactionRequest(
+                    peer=target_id,
+                    msg_id=target_msg_id,
+                    reaction=reactions if reactions else None
+                ))
+                logger.info(
+                    f"Synced reaction for msg {source_msg_id}: "
+                    f"{chat_id} → {target_id}"
+                )
+            except Exception as e:
+                logger.error(
+                    f"Failed to sync reaction for msg {source_msg_id} "
+                    f"from {chat_id} to {target_id}: {e}"
+                )
+
