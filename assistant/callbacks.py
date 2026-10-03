@@ -111,7 +111,7 @@ CHAT_PAGE_SIZE = 10
 
 
 async def show_source_chats(event, page: int = 0, dialogs=None):
-    """Show only configured target chats, using the original Dialog-name architecture."""
+    """List joined groups/channels with pagination to keep Telegram reply markup small."""
     from core.client import client
 
     if dialogs is None:
@@ -120,69 +120,20 @@ async def show_source_chats(event, page: int = 0, dialogs=None):
             dialogs = await client.get_dialogs()
         except Exception as e:
             await event.edit(
-                f"❌ **Failed to load chats:** `{e}`",
-                buttons=[[Button.inline("🔙 Back", b"menu:main")]]
+                f"❌ **Failed to load chats:**\n`{e}`",
+                buttons=[[Button.inline("🔙 Back", b"menu:back")]]
             )
             return
 
-    # Targets come from the existing forwarding-rule storage.
-    rules = get_forward_rules()
-    target_ids = []
-    seen_targets = set()
+    chats = [d for d in dialogs if d.is_channel or d.is_group]
+    count = len(chats)
 
-    for _source_id, target_id, _active in rules:
-        try:
-            target_id = int(target_id)
-        except (TypeError, ValueError):
-            continue
-        if target_id not in seen_targets:
-            seen_targets.add(target_id)
-            target_ids.append(target_id)
-
-    if not target_ids:
+    if not chats:
         await event.edit(
-            "📭 **No target chats configured yet.**",
-            buttons=[[Button.inline("🔙 Back", b"menu:main")]]
+            "📢 **No groups or channels found.**\n\nMake sure the UserBot has joined some chats.",
+            buttons=[[Button.inline("🔙 Back", b"menu:back")]]
         )
         return
-
-    # Preserve the original working name mechanism:
-    # client.get_dialogs() -> Dialog object -> d.name.
-    # IDs are used only to filter the dialogs.
-    dialog_map = {}
-    try:
-        from telethon import utils
-    except Exception:
-        utils = None
-
-    for d in dialogs:
-        if not (d.is_channel or d.is_group):
-            continue
-
-        ids = set()
-        try:
-            ids.add(int(d.id))
-        except (TypeError, ValueError):
-            pass
-
-        entity = getattr(d, "entity", None)
-        if entity is not None:
-            try:
-                ids.add(int(entity.id))
-            except (TypeError, ValueError, AttributeError):
-                pass
-            if utils is not None:
-                try:
-                    ids.add(int(utils.get_peer_id(entity)))
-                except Exception:
-                    pass
-
-        for dialog_id in ids:
-            dialog_map[dialog_id] = d
-
-    # Keep the order in which targets appear in the forwarding rules.
-    chats = [(target_id, dialog_map.get(target_id)) for target_id in target_ids]
-    count = len(chats)
 
     total_pages = (count + CHAT_PAGE_SIZE - 1) // CHAT_PAGE_SIZE
     page = max(0, min(page, total_pages - 1))
@@ -190,61 +141,30 @@ async def show_source_chats(event, page: int = 0, dialogs=None):
     page_chats = chats[start:start + CHAT_PAGE_SIZE]
 
     buttons = []
-    for target_id, d in page_chats:
-        if d is not None:
-            icon = "📣" if d.is_channel else "👥"
-            # The old working mechanism: Telegram's resolved Dialog name.
-            name = (d.name or f"Chat {target_id}")[:35]
-        else:
-            icon = "🎯"
-            name = f"Chat {target_id}"
+    for d in page_chats:
+        icon = "📣" if d.is_channel else "👥"
+        name = (d.name or f"Chat {d.id}")[:35]
+        buttons.append([Button.inline(f"{icon} {name}", f"chat_detail:{d.id}".encode())])
 
-        # Keep the configured TARGET ID for target management.
-        buttons.append([
-            Button.inline(
-                f"{icon} {name}",
-                f"managed_target:{target_id}:{page}".encode()
-            )
-        ])
-
-    nav = []
+    navigation = []
     if page > 0:
-        nav.append(Button.inline("⬅️ Previous", f"chats_page:{page - 1}".encode()))
+        navigation.append(Button.inline("⬅️ Previous", f"chats_page:{page - 1}".encode()))
     if page < total_pages - 1:
-        nav.append(Button.inline("Next ➡️", f"chats_page:{page + 1}".encode()))
-    if nav:
-        buttons.append(nav)
+        navigation.append(Button.inline("Next ➡️", f"chats_page:{page + 1}".encode()))
+    if navigation:
+        buttons.append(navigation)
 
-    buttons.append([Button.inline("🔙 Back", b"menu:main")])
+    buttons.append([Button.inline("🔙 Back", b"menu:back")])
 
-    await event.edit(
-        f"📂 **Manage Chats**\n\n"
-        f"Page **{page + 1}/{total_pages}** • **{count} targets configured**",
-        buttons=buttons
+    text = (
+        f"📢 **Select a Chat to Manage**\n\n"
+        f"Showing `{start + 1}-{min(start + CHAT_PAGE_SIZE, count)}` of `{count}` chats\n"
+        f"📄 **Page {page + 1}/{total_pages}**"
     )
+    await event.edit(text, buttons=buttons)
 
-async def show_managed_target(event, target_id: int, page: int = 0):
-    """Show a configured target while keeping existing forwarding-rule storage."""
-    from core.client import client
 
-    rules = get_forward_rules()
-    matching = [
-        (source_id, active)
-        for source_id, rule_target_id, active in rules
-        if int(rule_target_id) == int(target_id)
-    ]
-
-    name = await get_chat_name(client, target_id)
-    active_count = sum(1 for _source_id, active in matching if active)
-
-    await event.edit(
-        f"🎯 **{name}**\n\n"
-        f"🆔 `{target_id}`\n"
-        f"📌 Rules: **{len(matching)}**\n"
-        f"🟢 Active: **{active_count}**",
-        buttons=[[Button.inline("🔙 Back", f"chats_page:{page}".encode())]]
-    )
-
+# ─── Chat detail page ─────────────────────────────────────────────────────────
 
 async def show_chat_detail(event, source_id: int):
     """Per-chat overview: plain rules count, regex status, targets."""
@@ -567,12 +487,6 @@ def register(bot_client):
             await show_active_rules(event)
 
         # ── Chat detail ────────────────────────────────────────────────────
-        elif data.startswith(b"managed_target:"):
-            parts = data.decode().split(":")
-            target_id = int(parts[1])
-            page = int(parts[2]) if len(parts) > 2 else 0
-            await show_managed_target(event, target_id, page=page)
-
         elif data.startswith(b"chat_detail:"):
             source_id = int(data.decode().split(":", 1)[1])
             await show_chat_detail(event, source_id)
