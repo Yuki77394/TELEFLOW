@@ -18,17 +18,69 @@ import config
 # ─── Utility ─────────────────────────────────────────────────────────────────
 
 async def get_chat_name(client, chat_id):
-    """Resolve chat ID → readable title/name."""
+    """
+    Resolve a configured target strictly as a Telegram group/channel.
+
+    Important:
+    Telegram/Telethon can represent a channel with:
+      - marked dialog ID: -100xxxxxxxxxx
+      - raw Channel.id:  xxxxxxxxxx
+
+    Older forwarding rules may contain the raw positive Channel.id.
+    Therefore get_entity(raw_id) can be interpreted incorrectly as a user.
+    We also inspect dialogs and compare both representations.
+    """
+    # 1) Try the exact stored ID first.
     try:
         entity = await client.get_entity(chat_id)
-        if hasattr(entity, 'title') and entity.title:
-            return entity.title
-        elif hasattr(entity, 'first_name') and entity.first_name:
-            last = f" {entity.last_name}" if getattr(entity, 'last_name', None) else ""
-            return f"{entity.first_name}{last}"
-        return f"Chat {chat_id}"
+        title = getattr(entity, "title", None)
+        if title:
+            return title
     except Exception:
-        return f"Chat {chat_id}"
+        pass
+
+    # 2) Resolve from dialogs using BOTH Telethon ID representations.
+    try:
+        async for dialog in client.iter_dialogs():
+            entity = getattr(dialog, "entity", None)
+            if entity is None:
+                continue
+
+            dialog_id = getattr(dialog, "id", None)
+            entity_id = getattr(entity, "id", None)
+
+            # Telethon's marked peer ID for channels/supergroups.
+            try:
+                from telethon import utils
+                marked_id = utils.get_peer_id(entity)
+            except Exception:
+                marked_id = None
+
+            if chat_id not in (dialog_id, entity_id, marked_id):
+                continue
+
+            # Manage Chats is ONLY for groups/channels.
+            title = getattr(entity, "title", None)
+            is_group_or_channel = (
+                bool(title)
+                and (
+                    getattr(dialog, "is_group", False)
+                    or getattr(dialog, "is_channel", False)
+                    or getattr(entity, "megagroup", False)
+                    or getattr(entity, "broadcast", False)
+                )
+            )
+
+            if is_group_or_channel:
+                return title
+
+            # Never show a user's first/last name here.
+            return f"Chat {chat_id}"
+
+    except Exception:
+        pass
+
+    return f"Chat {chat_id}"
 
 
 def _encode(text: str) -> str:
