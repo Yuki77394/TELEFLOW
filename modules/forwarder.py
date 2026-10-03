@@ -32,37 +32,89 @@ _media_group_buffer = {}
 # reverse source/target configurations cannot create an infinite A -> B -> A loop.
 # Key: (chat_id, message_id). Value: monotonic expiry timestamp.
 _loop_guard = {}
-_LOOP_GUARD_TTL = 600  # 10 minutes; loops happen immediately, so no permanent storage is needed.
+# (target_chat_id, generated_message_id) -> expiry
+# Stores the messages actually created by this forwarding pipeline.
+_LOOP_GUARD_TTL = 600  # 10 minutes
 _loop_guard_lock = asyncio.Lock()
 
 
-async def _mark_forwarded_message(chat_id, message_id):
-    """Remember a message produced by this module for a short TTL."""
+async def _mark_forwarded_message(chat_id, message_id, origin_chat_id=None, origin_message_id=None):
+    """Remember a generated message and, when available, its source/origin."""
     if not chat_id or not message_id:
         return
     now = asyncio.get_running_loop().time()
     async with _loop_guard_lock:
-        # Opportunistic cleanup keeps the in-memory map bounded.
-        expired = [k for k, expiry in _loop_guard.items() if expiry <= now]
+        expired = [k for k, entry in _loop_guard.items() if entry.get("expiry", 0) <= now]
         for k in expired:
             _loop_guard.pop(k, None)
-        _loop_guard[(int(chat_id), int(message_id))] = now + _LOOP_GUARD_TTL
+        _loop_guard[(int(chat_id), int(message_id))] = {
+            "expiry": now + _LOOP_GUARD_TTL,
+            "origin": (
+                int(origin_chat_id), int(origin_message_id)
+            ) if origin_chat_id and origin_message_id else None,
+        }
 
 
-async def _is_loop_message(chat_id, message_id):
-    """Return True when this exact incoming message was recently created by us."""
-    if not chat_id or not message_id:
+async def _is_loop_message(chat_id, message):
+    """Detect a message produced by this pipeline, including forwarded copies."""
+    if not chat_id or not message or not message.id:
         return False
+
     now = asyncio.get_running_loop().time()
-    key = (int(chat_id), int(message_id))
+    exact_key = (int(chat_id), int(message.id))
+
+    # Telegram may create a NEW message ID when our generated message is
+    # forwarded back. Therefore exact-ID matching alone is not sufficient.
+    fwd_from = getattr(message, "fwd_from", None)
+    fwd_source_chat = None
+    fwd_source_msg = None
+
+    if fwd_from:
+        fwd_source_msg = getattr(fwd_from, "channel_post", None)
+        if fwd_source_msg is None:
+            fwd_source_msg = getattr(fwd_from, "saved_from_msg_id", None)
+        peer = getattr(fwd_from, "from_id", None)
+        if peer is not None:
+            # PeerChannel.channel_id / PeerChat.chat_id / PeerUser.user_id
+            fwd_source_chat = getattr(peer, "channel_id", None)
+            if fwd_source_chat is None:
+                fwd_source_chat = getattr(peer, "chat_id", None)
+            if fwd_source_chat is None:
+                fwd_source_chat = getattr(peer, "user_id", None)
+            if fwd_source_chat is not None:
+                # Channel IDs are represented as positive IDs by Telethon in
+                # PeerChannel; event.chat_id uses the -100... form.
+                fwd_source_chat = int(fwd_source_chat)
+                if fwd_source_chat > 0:
+                    fwd_source_chat = -1000000000000 - fwd_source_chat
+
     async with _loop_guard_lock:
-        expiry = _loop_guard.get(key)
-        if expiry is None:
-            return False
-        if expiry <= now:
-            _loop_guard.pop(key, None)
-            return False
-        return True
+        expired = [k for k, entry in _loop_guard.items()
+                   if entry.get("expiry", 0) <= now]
+        for k in expired:
+            _loop_guard.pop(k, None)
+
+        # 1) Exact generated message.
+        if exact_key in _loop_guard:
+            return True
+
+        # 2) A generated message was forwarded back to us. Telegram gives the
+        # forwarded message a new ID, so follow its (source chat, source msg ID)
+        # back into our short-lived generation map.
+        if fwd_source_chat is not None and fwd_source_msg is not None:
+            generated_key = (int(fwd_source_chat), int(fwd_source_msg))
+            if generated_key in _loop_guard:
+                return True
+
+        # 3) Native Telegram forwarding of an original A message back into A.
+        # The forward header itself says the original source is this same chat.
+        # This is the cleanest protection against A -> B -> A when B uses
+        # Telegram's native forward operation.
+        current_chat = int(chat_id)
+        if fwd_source_chat == current_chat:
+            return True
+
+    return False
 
 
 # Seconds to wait for remaining group messages before processing
@@ -637,7 +689,7 @@ async def process_media_group(client, grouped_id, chat_id):
                         sent_msgs = [sent_msgs]
                     for orig_msg, sent_msg in zip(messages, sent_msgs):
                         save_message_map(chat_id, orig_msg.id, target_id, sent_msg.id)
-                        await _mark_forwarded_message(target_id, sent_msg.id)
+                        await _mark_forwarded_message(target_id, sent_msg.id, chat_id, orig_msg.id)
 
                     if config.AUTO_REACT_ENABLED and sent_msgs:
                         # React once on the album -- reacting on the last item
@@ -658,7 +710,7 @@ async def process_media_group(client, grouped_id, chat_id):
                     )
                     if sent_msg:
                         save_message_map(chat_id, caption_msg.id, target_id, sent_msg.id)
-                        await _mark_forwarded_message(target_id, sent_msg.id)
+                        await _mark_forwarded_message(target_id, sent_msg.id, chat_id, caption_msg.id)
 
                         if config.AUTO_REACT_ENABLED:
                             asyncio.create_task(react_to_sent_message(client, target_id, sent_msg.id))
@@ -704,7 +756,7 @@ def register(client):
         # Loop protection is deliberately checked before any forwarding logic.
         # It does not inspect whether a message was manually posted or forwarded;
         # it only asks whether this exact message ID was recently produced by us.
-        if await _is_loop_message(chat_id, event.id):
+        if await _is_loop_message(chat_id, event.message):
             logger.info(
                 f"[LOOP-GUARD] Ignoring message {event.id} in {chat_id}: "
                 f"message was recently generated by this forwarding pipeline."
@@ -913,7 +965,7 @@ def register(client):
 
                 if sent_msg:
                     save_message_map(chat_id, event.id, target_id, sent_msg.id)
-                    await _mark_forwarded_message(target_id, sent_msg.id)
+                    await _mark_forwarded_message(target_id, sent_msg.id, chat_id, event.id)
                     logger.debug(f"Saved message mapping: Source {chat_id}:{event.id} -> Target {target_id}:{sent_msg.id}")
 
                     if config.AUTO_REACT_ENABLED:
@@ -932,7 +984,7 @@ def register(client):
                     )
                     if sent_msg:
                         save_message_map(chat_id, event.id, target_id, sent_msg.id)
-                        await _mark_forwarded_message(target_id, sent_msg.id)
+                        await _mark_forwarded_message(target_id, sent_msg.id, chat_id, event.id)
                         logger.info(f"Copied msg {event.id} after FloodWait: {chat_id} -> {target_id}")
 
                         if config.AUTO_REACT_ENABLED:
