@@ -107,33 +107,61 @@ async def show_status(event):
 
 # ─── Source Chat selector ─────────────────────────────────────────────────────
 
-async def show_source_chats(event):
-    """List all groups/channels where the userbot is joined."""
-    await event.edit("🔄 *Loading chats from UserBot…*")
+CHAT_PAGE_SIZE = 10
+
+
+async def show_source_chats(event, page: int = 0, dialogs=None):
+    """List joined groups/channels with pagination to keep Telegram reply markup small."""
     from core.client import client
-    try:
-        dialogs = await client.get_dialogs()
-        buttons = []
-        count = 0
-        for d in dialogs:
-            # Check for channel (supergroup or channel) or group
-            if d.is_channel or d.is_group:
-                icon = "📣" if d.is_channel else "👥"
-                buttons.append([Button.inline(f"{icon} {d.name[:25]}", f"chat_detail:{d.id}".encode())])
-                count += 1
-        
-        if not buttons:
+
+    if dialogs is None:
+        await event.edit("🔄 *Loading chats from UserBot…*")
+        try:
+            dialogs = await client.get_dialogs()
+        except Exception as e:
             await event.edit(
-                "📢 **No groups or channels found.**\n\nMake sure the UserBot has joined some chats.",
+                f"❌ **Failed to load chats:**\n`{e}`",
                 buttons=[[Button.inline("🔙 Back", b"menu:back")]]
             )
             return
-            
-        text = f"📢 **Select a Chat to Manage ({count} chats loaded):**"
-        buttons.append([Button.inline("🔙 Back", b"menu:back")])
-        await event.edit(text, buttons=buttons)
-    except Exception as e:
-        await event.edit(f"❌ **Failed to load chats:**\n`{e}`", buttons=[[Button.inline("🔙 Back", b"menu:back")]])
+
+    chats = [d for d in dialogs if d.is_channel or d.is_group]
+    count = len(chats)
+
+    if not chats:
+        await event.edit(
+            "📢 **No groups or channels found.**\n\nMake sure the UserBot has joined some chats.",
+            buttons=[[Button.inline("🔙 Back", b"menu:back")]]
+        )
+        return
+
+    total_pages = (count + CHAT_PAGE_SIZE - 1) // CHAT_PAGE_SIZE
+    page = max(0, min(page, total_pages - 1))
+    start = page * CHAT_PAGE_SIZE
+    page_chats = chats[start:start + CHAT_PAGE_SIZE]
+
+    buttons = []
+    for d in page_chats:
+        icon = "📣" if d.is_channel else "👥"
+        name = (d.name or f"Chat {d.id}")[:35]
+        buttons.append([Button.inline(f"{icon} {name}", f"chat_detail:{d.id}".encode())])
+
+    navigation = []
+    if page > 0:
+        navigation.append(Button.inline("⬅️ Previous", f"chats_page:{page - 1}".encode()))
+    if page < total_pages - 1:
+        navigation.append(Button.inline("Next ➡️", f"chats_page:{page + 1}".encode()))
+    if navigation:
+        buttons.append(navigation)
+
+    buttons.append([Button.inline("🔙 Back", b"menu:back")])
+
+    text = (
+        f"📢 **Select a Chat to Manage**\n\n"
+        f"Showing `{start + 1}-{min(start + CHAT_PAGE_SIZE, count)}` of `{count}` chats\n"
+        f"📄 **Page {page + 1}/{total_pages}**"
+    )
+    await event.edit(text, buttons=buttons)
 
 
 # ─── Chat detail page ─────────────────────────────────────────────────────────
@@ -428,6 +456,10 @@ def register(bot_client):
 
         elif data == b"menu:chats_src":
             await show_source_chats(event)
+
+        elif data.startswith(b"chats_page:"):
+            page = int(data.decode().split(":", 1)[1])
+            await show_source_chats(event, page=page)
 
         elif data == b"menu:super_users":
             await show_super_users(event)
